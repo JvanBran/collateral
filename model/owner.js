@@ -35,7 +35,7 @@ class Owner extends Model {
                     comment: '管理员状态'
                 },
                 owner_ramke:{
-                    type: DataTypes.BIGINT,
+                    type: DataTypes.STRING,
                     allowNull: false,
                     comment: '备注'
                 }
