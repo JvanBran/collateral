@@ -35,7 +35,6 @@ class Organizational extends Model {
     }
     static associate(models){
         models.Organizational.hasMany(models.Owner)
-        models.Organizational.hasMany(models.Role)
         models.Organizational.hasMany(models.Storage)
         models.Organizational.hasMany(models.Assets)
     }

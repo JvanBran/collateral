@@ -14,6 +14,11 @@ class Owner extends Model {
                     allowNull: false,
                     comment: '管理员用户名'
                 },
+                owner_password:{
+                    type: DataTypes.STRING,
+                    allowNull: false,
+                    comment: '管理员密码'
+                },
                 owner_phone:{
                     type: DataTypes.STRING,
                     allowNull: false,

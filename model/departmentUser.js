@@ -9,23 +9,23 @@ class DepartmentUser extends Model {
                     allowNull:false,
                     primaryKey: true
                 },
-                departmentUser_name:{
+                department_user_name:{
                     type: DataTypes.STRING,
                     allowNull: false,
                     comment: '入库人名'
                 },
-                departmentUser_phone:{
+                department_user_phone:{
                     type: DataTypes.STRING,
                     allowNull: false,
-                    comment: '管理员手机'
+                    comment: '入库人手机'
                 },
-                departmentUser_email:{
+                department_user_email:{
                     type: DataTypes.STRING,
                     allowNull: false,
-                    comment: '管理员邮箱'
+                    comment: '入库人邮箱'
                 },
-                departmentUser_ramke:{
-                    type: DataTypes.BIGINT,
+                department_user_ramke:{
+                    type: DataTypes.STRING,
                     allowNull: false,
                     comment: '备注'
                 }
@@ -34,12 +34,13 @@ class DepartmentUser extends Model {
                 sequelize, 
                 freezeTableName: true,
                 modelName: 'DepartmentUser', 
-                comment: "管理员用户信息"
+                comment: "入库人用户信息"
             }
         )
     }
     static associate(models){
         models.DepartmentUser.belongsTo(models.Department)
+        models.DepartmentUser.hasMany(models.Assets)
         models.DepartmentUser.belongsToMany(models.Assets,{through: models.AssetsBrrow})
         models.DepartmentUser.belongsToMany(models.Assets,{through: models.AssetsOut})
         models.DepartmentUser.belongsToMany(models.Assets,{through: models.AssetsInt})

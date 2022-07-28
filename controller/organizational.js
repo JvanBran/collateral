@@ -28,10 +28,7 @@ class OrganizationalController{
         })
     }
     static async ListTree (ctx){
-        const { id } = ctx.query
-        const Filter = id ? { 'parent_id' : id  } : {}
         const arrList = await models.Organizational.findAll({
-            where:Filter,
             attributes: [
                 "id",
                 "dept_name", 
@@ -51,34 +48,38 @@ class OrganizationalController{
     }
     static async Add (ctx){
         const { dept_name, parent_id= 0, order_num} = ctx.request.body
-        const userInfo = await models.Organizational.create({
+        const Info = await models.Organizational.create({
             dept_name, parent_id, order_num
         })
-        ctx.success(userInfo)
+        ctx.success(Info)
     }
     static async Edit (ctx){
         const { id, dept_name, parent_id, order_num} = ctx.request.body
-        await models.Organizational.update({
+        const updateStatus =  await models.Organizational.update({
             dept_name, parent_id, order_num
         },{
             where:{
                 id
             }
         })
-        const returnUpdatedOrganizational =  await models.Organizational.findOne({
-            where:{
-                id
-            },
-            attributes: [
-                "id",
-                "dept_name", 
-                "parent_id", 
-                "order_num",
-                "created_at",
-                "updated_at",
-            ]
-        })
-        ctx.success(returnUpdatedOrganizational)
+        if(updateStatus[0]>0){
+            const returnUpdatedOrganizational =  await models.Organizational.findOne({
+                where:{
+                    id
+                },
+                attributes: [
+                    "id",
+                    "dept_name", 
+                    "parent_id", 
+                    "order_num",
+                    "created_at",
+                    "updated_at",
+                ]
+            })
+            ctx.success(returnUpdatedOrganizational)
+        }else{
+            ctx.fail('更新失败',9002,{})
+        }
     }
     static async Delete (ctx){
         const { id } = ctx.query

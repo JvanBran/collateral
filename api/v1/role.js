@@ -1,18 +1,16 @@
 var router = require('koa-router')()
 const datalize = require('datalize');
 const field = datalize.field;
-const { List, ListTree, Add, Edit, Delete } = require('@controller/organizational.js')
+const { List, Add, Edit, Delete } = require('@controller/role.js')
 router
     .get('/list',datalize.query([
         field('pageNo').required(), //页码
         field('pageSize').required(), //分页数
-        field('dept_name') //架构名称
+        field('role_name') //角色名称
     ]),List)
-    .get('/listtree',datalize.query([]),ListTree)
     .post('/add', datalize([
-        field('dept_name').required(), //组织架构名
-        field('parent_id').required(), //父级架构id
-        field('order_num').required(), //同层排序
+        field('role_name').required(), //角色名称
+        field('role_desc').required(), //角色描述
     ]), Add)
     .put('/edit', datalize([
         field('id').required(), //组织架构id

@@ -1,42 +1,39 @@
 const {Sequelize,Model,DataTypes} = require('sequelize')
-class Role extends Model {
+class Dictionary extends Model {
     static init(sequelize){
         return super.init(
             {
                 id:{
-                    type: Sequelize.INTEGER(10),
-                    autoIncrement: true,
-                    allowNull:false,
+                    type: DataTypes.UUID,
+                    defaultValue: Sequelize.UUIDV4,
                     primaryKey: true
                 },
-                role_name:{
+                key:{
                     type: DataTypes.STRING,
                     allowNull: false,
-                    comment: '角色名'
+                    comment: '键'
                 },
-                role_desc:{
+                value:{
                     type: DataTypes.STRING,
                     allowNull: false,
-                    comment: '角色描述'
+                    comment: '值'
                 },
-                role_is:{
-                    type: DataTypes.INTEGER(1),
-                    defaultValue: 1,
+                type:{
+                    type: DataTypes.STRING,
                     allowNull: false,
-                    comment: '是否默认 0 默认 1 自定义'
+                    comment: '类型'
                 }
             },
             { 
                 sequelize, 
                 freezeTableName: true,
-                modelName: 'Role', 
-                comment: "角色信息"
+                modelName: 'Dictionary', 
+                comment: "系统信息"
             }
         )
     }
     static associate(models){
-        models.Role.hasMany(models.Owner)
     }
 }
 
-module.exports = Role
+module.exports = Dictionary
