@@ -17,6 +17,11 @@ class SysConfig extends Model {
                     type: DataTypes.STRING,
                     allowNull: false,
                     comment: '值'
+                },
+                type:{
+                    type: DataTypes.STRING,
+                    allowNull: false,
+                    comment: '类型'
                 }
             },
             { 
@@ -28,6 +33,7 @@ class SysConfig extends Model {
         )
     }
     static associate(models){
+        models.SysConfig.belongsTo(models.Organizational)
     }
 }
 

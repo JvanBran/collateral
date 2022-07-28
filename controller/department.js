@@ -43,7 +43,7 @@ class DepartmentController{
             }
         })
         if(updateStatus[0]>0){
-            const returnUpdatedRole =  await models.Department.findOne({
+            const returnUpdated =  await models.Department.findOne({
                 where:{
                     id
                 },
@@ -55,7 +55,7 @@ class DepartmentController{
                     "updated_at",
                 ]
             })
-            ctx.success(returnUpdatedRole)
+            ctx.success(returnUpdated)
         }else{
             ctx.fail('更新失败',9002,{})
         }

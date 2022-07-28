@@ -1,7 +1,7 @@
 const { Sequelize } = require('sequelize');
-const sequelize = new Sequelize('collateral','root','123.com',{
-    host: '172.18.5.171',
-    port: '3306',
+const sequelize = new Sequelize('collateral','root','123456',{
+    host: '192.168.1.13',
+    port: '19306',
     dialect:'mysql',
     logging: log,
     dialectOptions: {

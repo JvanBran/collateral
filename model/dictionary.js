@@ -33,6 +33,7 @@ class Dictionary extends Model {
         )
     }
     static associate(models){
+        models.Dictionary.belongsTo(models.Organizational)
     }
 }
 

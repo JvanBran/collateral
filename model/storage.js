@@ -20,12 +20,12 @@ class Storage extends Model {
                     comment: '仓库rfid'
                 },
                 storage_rfid_status:{
-                    type: DataTypes.INTEGER,
+                    type: DataTypes.INTEGER(10),
                     allowNull: false,
                     comment: '仓库rfid打印状态:0未打 1已打 2排队'
                 },
                 storage_ramke:{
-                    type: DataTypes.BIGINT,
+                    type: DataTypes.STRING,
                     allowNull: false,
                     comment: '备注'
                 }

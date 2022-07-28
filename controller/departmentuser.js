@@ -52,30 +52,38 @@ class DepartmentUserController{
         ctx.success(Info)
     }
     static async Edit (ctx){
-        const { id, department_user_name, department_ramke} = ctx.request.body
+        const { id, department_user_name, department_user_phone,department_user_email,department_user_ramke,department_id} = ctx.request.body
         const updateStatus =  await models.DepartmentUser.update({
-            department_user_name, department_ramke
+            department_user_name, department_user_phone,department_user_email,department_user_ramke,DepartmentId:department_id
         },{
             where:{
                 id
             }
         })
         if(updateStatus[0]>0){
-            const returnUpdatedRole =  await models.DepartmentUser.findOne({
+            const returnUpdated =  await models.DepartmentUser.findOne({
                 where:{
                     id
                 },
                 attributes: [   
                     "id",
-                    "department_user_name", 
-                    "department_user_phone", 
+                    "department_user_name",
+                    "department_user_phone",
                     "department_user_email",
                     "department_user_ramke",
+                    "department_id",
+                    [Sequelize.col('Department.department_name'), 'department_name'],
+                    [Sequelize.col('Department.department_ramke'), 'department_ramke'],
                     "created_at",
                     "updated_at",
-                ]
+                ],
+                include:[{
+                    attributes: [],
+                    model:models.Department,
+                    require: false,
+                }],
             })
-            ctx.success(returnUpdatedRole)
+            ctx.success(returnUpdated)
         }else{
             ctx.fail('更新失败',9002,{})
         }

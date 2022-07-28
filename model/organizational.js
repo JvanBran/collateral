@@ -37,6 +37,8 @@ class Organizational extends Model {
         models.Organizational.hasMany(models.Owner)
         models.Organizational.hasMany(models.Storage)
         models.Organizational.hasMany(models.Assets)
+        models.Organizational.hasMany(models.SysConfig)
+        models.Organizational.hasMany(models.Dictionary)
     }
 }
 
