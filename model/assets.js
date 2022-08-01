@@ -8,7 +8,7 @@ class Assets extends Model {
                     defaultValue: Sequelize.UUIDV4,
                     primaryKey: true
                 },
-                sequenceNum:{
+                sequence_num:{
                     type: DataTypes.INTEGER(10),
                     allowNull: false,
                     defaultValue: 0, //0是没有排序的

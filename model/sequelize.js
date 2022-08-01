@@ -1,9 +1,12 @@
+require('dotenv').config('./env')
+const { DB_HOST, DB_NAME, DB_PORT, DB_USER, DB_PWD } =  process.env
 const { Sequelize } = require('sequelize');
-const sequelize = new Sequelize('collateral','root','123.com',{
-    host: '172.18.5.171',
-    port: '3306',
+const sequelizes = new Sequelize(DB_NAME,DB_USER,DB_PWD,{
+    host: DB_HOST,
+    port: DB_PORT,
     dialect:'mysql',
     logging: log,
+    dialectModule: require('mysql2'),
     dialectOptions: {
         charset: "utf8",
         bigNumberStrings: true,
@@ -32,4 +35,12 @@ const sequelize = new Sequelize('collateral','root','123.com',{
 function log(sql,detail){
     console.log(sql);
 }
-module.exports = sequelize
+// sequelizes.transaction({
+//     // to defer all constraints:
+//     deferrable: Sequelize.Deferrable.SET_DEFERRED,
+//     // to defer a specific constraint:
+//     // deferrable: Sequelize.Deferrable.SET_DEFERRED(['some_constraint']),
+//     // to not defer constraints:
+//     // deferrable: Sequelize.Deferrable.SET_IMMEDIATE
+// })
+module.exports = sequelizes

@@ -1,6 +1,8 @@
-const {Sequelize,Op} = require('sequelize');
-const {models} = require('@model/index.js');
+const {Op} = require('sequelize');
+const {models,transaction} = require('@model/index.js');
 const {transListToTreeData,transTreeToListData,getRfidCode} = require('@util/util.js');
+const RedisStore = require('@plugins/redis.js')
+const redisStore = new RedisStore()
 class AssetsController{
     static async List (ctx){
         const { pageNo, pageSize, articles_name} = ctx.query
@@ -71,32 +73,128 @@ class AssetsController{
             organizationalId=ctx.userInfo.organizational_id,
             roleId=ctx.userInfo.role_id
         } = ctx.request.body
-        const Info = await models.Assets.create({
-            rfid_code:getRfidCode(),
-            rfid_status,
-            asstes_behaviour,
-            asstes_status,
-            affiliation, 
-            asset_num, 
-            order_num, 
-            evaluation_value,
-            warrant_num, 
-            droi_name, 
-            register_date, 
-            warehousing_time, 
-            departmentId, 
-            departmentUserId,
-            collateral_type,
-            registrar,
-            contract_no,
-            source_of_assets,
-            borrower,
-            articlesClassId,
-            storageId,
-            organizationalId,
-            roleId
-        })
-        ctx.success(Info)
+        // const Info = await models.Assets.create({
+        //     rfid_code:getRfidCode(),
+        //     rfid_status,
+        //     asstes_behaviour,
+        //     asstes_status,
+        //     affiliation, 
+        //     asset_num, 
+        //     order_num, 
+        //     evaluation_value,
+        //     warrant_num, 
+        //     droi_name, 
+        //     register_date, 
+        //     warehousing_time, 
+        //     departmentId, 
+        //     departmentUserId,
+        //     collateral_type,
+        //     registrar,
+        //     contract_no,
+        //     source_of_assets,
+        //     borrower,
+        //     articlesClassId,
+        //     storageId,
+        //     organizationalId,
+        //     roleId
+        // })
+        /**
+         * 创建成功之后更新顺序值
+        */
+        // 根据组织架构id+仓库id+库区id 创建锁key
+        //const lock = await redisStore.redlock.acquire(['sequenceNum:lock:'+organizationalId+':'+departmentId+':'+storageId],5000)
+        // 根据组织架构id+仓库id+库区id 创建自增顺序id
+        const sequenceNum = await redisStore.redis.get('sequenceNum:lock:num:'+organizationalId+':'+departmentId+':'+storageId) || 0
+        // const result = await transaction(async (t) => {
+        //     const Info = await models.Assets.create({
+        //         rfid_code:getRfidCode(),
+        //         rfid_status,
+        //         asstes_behaviour,
+        //         asstes_status,
+        //         affiliation, 
+        //         asset_num, 
+        //         order_num, 
+        //         evaluation_value,
+        //         warrant_num, 
+        //         droi_name, 
+        //         register_date, 
+        //         warehousing_time, 
+        //         departmentId, 
+        //         departmentUserId,
+        //         collateral_type,
+        //         registrar,
+        //         contract_no,
+        //         source_of_assets,
+        //         borrower,
+        //         articlesClassId,
+        //         storageId,
+        //         organizationalId,
+        //         roleId
+        //     }, { transaction: t })
+        //     return [Info];
+        // })
+        // console.log(result)
+        // transaction(function(t){
+        //     return transaction( function(t) {
+        //         return models.Assets.create({
+        //             rfid_code:getRfidCode(),
+        //             rfid_status,
+        //             asstes_behaviour,
+        //             asstes_status,
+        //             affiliation, 
+        //             asset_num, 
+        //             order_num, 
+        //             evaluation_value,
+        //             warrant_num, 
+        //             droi_name, 
+        //             register_date, 
+        //             warehousing_time, 
+        //             departmentId, 
+        //             departmentUserId,
+        //             collateral_type,
+        //             registrar,
+        //             contract_no,
+        //             source_of_assets,
+        //             borrower,
+        //             articlesClassId,
+        //             storageId,
+        //             organizationalId,
+        //             roleId
+        //         }, {transaction: t}).then(function (Info) {
+        //             return models.Assets.update({
+        //                 sequence_num: parseInt(sequenceNum)+1
+        //             },{
+        //                 where:{
+        //                     id:Info.dataValues.id
+        //                 }
+        //             },{transaction: t})
+        //         })
+        //     }).then(function (result) {
+        //         ctx.success(result)
+        //     }).catch(function (err) {
+        //         console.log(err)
+        //     })
+        // })
+        
+        
+        // 根据已有的顺序id尝试做更新
+        // if(updateInfo[0]>0){
+        //     //如果更新成功则触发rdies自增 增加记录
+        //     await redisStore.redis.incr('sequenceNum:lock:num:'+organizationalId+':'+departmentId+':'+storageId)
+        //     //释放锁
+        //     lock.release();
+        //     const findInfo = await models.Assets.findOne({
+        //         where:{
+        //             id:Info.dataValues.id
+        //         }
+        //     })
+        //     ctx.success(findInfo)
+        // }else{
+        //     ctx.fail('创建失败',9002,{})
+        // }
+        // let t = transaction()
+        const asd = await transaction({},{})
+        ctx.success(asd)
     }
     static async Edit (ctx){
         const { id, articles_name, parent_id, order_num} = ctx.request.body

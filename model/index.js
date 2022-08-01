@@ -1,4 +1,4 @@
-const sequelize = require('./sequelize.js')
+const sequelizes = require('./sequelize.js')
 const fs = require('fse')
 const path = require('path')
 const files = fs
@@ -6,12 +6,11 @@ const files = fs
     .filter((f)=> !['sequelize.js','index.js'].includes(f) && f.endsWith('.js')
     )
 for(const item of files){
-    require(path.join(__dirname,item)).init(sequelize)
+    require(path.join(__dirname,item)).init(sequelizes)
 }
-Object.values(sequelize.models)
+Object.values(sequelizes.models)
   .filter(model => typeof model.associate === "function")
-  .forEach(model => model.associate(sequelize.models));
-
+  .forEach(model => model.associate(sequelizes.models));
 // sequelize.sync({ force: true})
-sequelize.sync({ alter: true})
-module.exports = sequelize
+sequelizes.sync({ alter: true})
+module.exports = sequelizes

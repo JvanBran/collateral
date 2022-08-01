@@ -11,12 +11,14 @@
   "_moduleAliases": {
     "@controller": "controller",
     "@model": "model",
-    "@util": "util"
+    "@util": "util",
+    "@plugins": "plugins"
   },
   "dependencies": {
     "crypto": "^1.0.1",
     "datalize": "0.3.4",
     "debug": "4.1.1",
+    "dotenv": "^16.0.1",
     "fse": "4.0.1",
     "ioredis": "^5.2.2",
     "jsonwebtoken": "^8.5.1",
@@ -32,8 +34,9 @@
     "lodash": "4.17.21",
     "log4js": "6.6.1",
     "module-alias": "2.2.2",
-    "mysql2": "2.3.3",
+    "mysql2": "^2.3.3",
     "pug": "2.0.3",
+    "redlock": "^5.0.0-beta.2",
     "sequelize": "5.21.10"
   },
   "devDependencies": {
