@@ -53,6 +53,7 @@ class OwnerController{
     }
     static async Add (ctx){
         const { owner_name, owner_password,owner_phone,owner_email,owner_status,owner_ramke,organizational_id,role_id } = ctx.request.body
+        // TODO 不允许同名
         const Info = await models.Owner.create({
             owner_name, 
             owner_password,
@@ -68,6 +69,7 @@ class OwnerController{
     static async Edit (ctx){
         const { id, owner_name, owner_password, owner_password_old,owner_phone,owner_email,owner_status,owner_ramke,organizational_id,role_id} = ctx.request.body
         // TODO 如果修改密码 则需要校验密码
+        // TODO 不允许同名
         if(owner_password_old){
             const Info =  await models.Owner.findOne({
                 where:{

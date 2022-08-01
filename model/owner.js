@@ -55,6 +55,12 @@ class Owner extends Model {
         models.Owner.hasMany(models.InventoryOrder)
         models.Owner.hasMany(models.Assets)
         models.Owner.hasMany(models.InventoryRecord)
+        models.Owner.hasMany(models.AssetsBrrow)
+        models.Owner.hasMany(models.AssetsOut)
+        models.Owner.hasMany(models.AssetsInt)
+        models.Owner.hasMany(models.AssetsReplace)
+        models.Owner.hasMany(models.AssetsTransferInt)
+        models.Owner.hasMany(models.AssetsTransferOut)
     }
 }
 

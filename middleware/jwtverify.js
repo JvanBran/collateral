@@ -7,8 +7,8 @@ module.exports = ()=>{
             if(authorization!=''){
                 const token = authorization.split(' ')[1]
                 try {
-                    const payload =  await jwt.verify(token, 'inntegration')
-                    ctx.userId = payload.userid
+                    ctx.userInfo =  await jwt.verify(token, 'collateral')
+                    console.log(ctx.userInfo )
                 } catch (err) {
                     ctx.fail('token过期！！',401,{})
                     return

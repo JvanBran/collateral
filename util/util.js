@@ -1,3 +1,4 @@
+const crypto = require("crypto");
 function transListToTreeData(list, tree, parentId, index = 1) {
     let indexs = index
     list.forEach((item) => {
@@ -29,7 +30,12 @@ function transTreeToListData(tree, list) {
         list.push(item)
     })
 }
+function getRfidCode(){
+    const rfidCode = 'A' + crypto.randomBytes(8).toString('hex').slice(0, 15)
+    return rfidCode.toUpperCase()
+}
 module.exports = {
-    transListToTreeData:transListToTreeData,
-    transTreeToListData:transTreeToListData
+    transListToTreeData: transListToTreeData,
+    transTreeToListData: transTreeToListData,
+    getRfidCode: getRfidCode
 }

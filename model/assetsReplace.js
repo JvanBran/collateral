@@ -8,6 +8,11 @@ class AssetsReplace extends Model {
                     autoIncrement: true,
                     allowNull:false,
                     primaryKey: true
+                },
+                oldAssetsId:{
+                    type: DataTypes.UUID,
+                    allowNull:false,
+                    comment: '被置换资产id'
                 }
             },
             { 

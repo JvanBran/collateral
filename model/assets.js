@@ -11,6 +11,7 @@ class Assets extends Model {
                 sequenceNum:{
                     type: DataTypes.INTEGER(10),
                     allowNull: false,
+                    defaultValue: 0, //0是没有排序的
                     comment: '顺序编号'
                 },
                 rfid_code:{
@@ -28,27 +29,27 @@ class Assets extends Model {
                     allowNull: false,
                     comment: '机构编号'
                 },
-                assetNum:{
+                asset_num:{
                     type: DataTypes.STRING,
                     allowNull: false,
                     comment: '资产编号'
                 },
-                evaluationValue:{
+                evaluation_value:{
                     type: DataTypes.STRING,
                     allowNull: false,
                     comment: '资产价值'
                 },
-                warrantNum:{
+                warrant_num:{
                     type: DataTypes.STRING,
                     allowNull: false,
                     comment: '权证编号'
                 },
-                droiName:{
+                droi_name:{
                     type: DataTypes.STRING,
                     allowNull: false,
                     comment: '所有权人名称'
                 },
-                contractNo:{
+                contract_no:{
                     type: DataTypes.STRING,
                     allowNull: false,
                     comment: '合同号'
@@ -63,12 +64,18 @@ class Assets extends Model {
                     allowNull: false,
                     comment: '登记机关'
                 },
-                registerDate:{
+                register_date:{
                     type: DataTypes.DATE,
                     allowNull: false,
                     comment: '登记时间'
                 },
-                warehousingTime:{
+                collateral_type:{
+                    type: DataTypes.INTEGER(1),
+                    allowNull: false,
+                    comment: '抵质押物类型 0 抵押 1 质押'
+                },
+                
+                warehousing_time:{
                     type: DataTypes.DATE,
                     allowNull: false,
                     comment: '入库时间'
@@ -76,15 +83,18 @@ class Assets extends Model {
                 asstes_behaviour:{
                     type: DataTypes.INTEGER,
                     allowNull: false,
+                    defaultValue: 0,
                     comment: '资产行为' //行为: 0入库 1 借用 2归还 3维修 4减少 5调拨 6领用 7移交 8置换
                 },
                 asstes_status:{
                     type: DataTypes.INTEGER,
                     allowNull: false,
+                    defaultValue: 0,
                     comment: '资产状态' //状态: 0 在库 1出库 2调拨中 
                 },
                 source_of_assets:{
                     type: DataTypes.INTEGER,
+                    defaultValue: 0,
                     allowNull: false,
                     comment: '资产数据来源' //状态: 0 rfid 1uecm 
                 }

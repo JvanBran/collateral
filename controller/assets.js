@@ -1,12 +1,12 @@
 const {Sequelize,Op} = require('sequelize');
 const {models} = require('@model/index.js');
-const {transListToTreeData,transTreeToListData} = require('@util/util.js');
-class ArticlesClassController{
+const {transListToTreeData,transTreeToListData,getRfidCode} = require('@util/util.js');
+class AssetsController{
     static async List (ctx){
         const { pageNo, pageSize, articles_name} = ctx.query
         let offset = (Number(pageNo) - 1) * Number(pageSize);
         const Filter = articles_name ? { 'articles_name' : { [Op.like]: `%${articles_name}%` } } : {}
-        const info = await models.ArticlesClass.findAndCountAll({
+        const info = await models.Assets.findAndCountAll({
             where:Filter,
             limit: Number(pageSize),
             attributes: [
@@ -28,7 +28,7 @@ class ArticlesClassController{
         })
     }
     static async ListTree (ctx){
-        const arrList = await models.ArticlesClass.findAll({
+        const arrList = await models.Assets.findAll({
             attributes: [
                 "id",
                 "articles_name", 
@@ -47,15 +47,60 @@ class ArticlesClassController{
         ctx.success(returnTree)
     }
     static async Add (ctx){
-        const { articles_name, parent_id= 0, order_num} = ctx.request.body
-        const Info = await models.ArticlesClass.create({
-            articles_name, parent_id, order_num
+        const { 
+            affiliation, 
+            asset_num, 
+            order_num, 
+            evaluation_value,
+            warrant_num, 
+            droi_name, 
+            register_date, 
+            warehousing_time, 
+            departmentId, 
+            departmentUserId,
+            collateral_type,
+            registrar,
+            contract_no,
+            borrower,
+            articlesClassId,
+            storageId,
+            rfid_status=0,
+            asstes_behaviour=0,
+            asstes_status=0,
+            source_of_assets=0,
+            organizationalId=ctx.userInfo.organizational_id,
+            roleId=ctx.userInfo.role_id
+        } = ctx.request.body
+        const Info = await models.Assets.create({
+            rfid_code:getRfidCode(),
+            rfid_status,
+            asstes_behaviour,
+            asstes_status,
+            affiliation, 
+            asset_num, 
+            order_num, 
+            evaluation_value,
+            warrant_num, 
+            droi_name, 
+            register_date, 
+            warehousing_time, 
+            departmentId, 
+            departmentUserId,
+            collateral_type,
+            registrar,
+            contract_no,
+            source_of_assets,
+            borrower,
+            articlesClassId,
+            storageId,
+            organizationalId,
+            roleId
         })
         ctx.success(Info)
     }
     static async Edit (ctx){
         const { id, articles_name, parent_id, order_num} = ctx.request.body
-        const updateStatus =  await models.ArticlesClass.update({
+        const updateStatus =  await models.Assets.update({
             articles_name, parent_id, order_num
         },{
             where:{
@@ -63,7 +108,7 @@ class ArticlesClassController{
             }
         })
         if(updateStatus[0]>0){
-            const returnUpdatedArticles =  await models.ArticlesClass.findOne({
+            const returnUpdatedArticles =  await models.Assets.findOne({
                 where:{
                     id
                 },
@@ -84,7 +129,7 @@ class ArticlesClassController{
     static async Delete (ctx){
         const { id } = ctx.query
         // 该节点没有被使用过
-        const infoList = await models.ArticlesClass.findAndCountAll({
+        const infoList = await models.Assets.findAndCountAll({
             where:{
                 parent_id:id
             }
@@ -92,7 +137,7 @@ class ArticlesClassController{
         if(infoList.count>0){
             ctx.fail('该节点正在被使用',9001,{})
         }else{
-            await models.ArticlesClass.destroy({
+            await models.Assets.destroy({
                 where:{
                     id
                 }
@@ -101,4 +146,4 @@ class ArticlesClassController{
         }
     }
 }
-module.exports = ArticlesClassController
+module.exports = AssetsController

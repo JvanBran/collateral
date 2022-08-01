@@ -14,9 +14,12 @@
     "@util": "util"
   },
   "dependencies": {
+    "crypto": "^1.0.1",
     "datalize": "0.3.4",
     "debug": "4.1.1",
     "fse": "4.0.1",
+    "ioredis": "^5.2.2",
+    "jsonwebtoken": "^8.5.1",
     "koa": "2.7.0",
     "koa-body": "5.0.0",
     "koa-convert": "1.2.0",

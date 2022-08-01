@@ -1,6 +1,6 @@
 const {Sequelize,Op} = require('sequelize');
 const {models} = require('@model/index.js');
-const {transListToTreeData,transTreeToListData} = require('@util/totree.js');
+const {transListToTreeData,transTreeToListData} = require('@util/util.js');
 class OrganizationalController{
     static async List (ctx){
         const { pageNo, pageSize, dept_name} = ctx.query
