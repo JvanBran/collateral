@@ -1,10 +1,6 @@
 const {Sequelize,Op} = require('sequelize');
 const {models,transaction} = require('@model/index.js');
-// const sequelize = require('@model/index.js');
-// console.log(sequelize.transaction)
-console.log(transaction)
-// console.log(Transaction)
-const {transListToTreeData,transTreeToListData,getRfidCodeA} = require('@util/util.js');
+const {getRfidCodeA} = require('@util/util.js');
 const RedisStore = require('@plugins/redis.js')
 const redisStore = new RedisStore()
 class AssetsController{
