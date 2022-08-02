@@ -12,7 +12,7 @@ Object.values(sequelizes.models)
   .filter(model => typeof model.associate === "function")
   .forEach(model => model.associate(sequelizes.models));
 // sequelize.sync({ force: true})
-sequelizes.sync({ alter: true})
+// sequelizes.sync({ alter: true})
 
 module.exports = {
   models: sequelizes.models,

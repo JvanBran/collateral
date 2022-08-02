@@ -1,6 +1,7 @@
 require('dotenv').config('./env')
 const { DB_HOST, DB_NAME, DB_PORT, DB_USER, DB_PWD } =  process.env
 const { Sequelize } = require('sequelize');
+const { info, debug, error, trace, warn, fatal } = require('@util/log4j')
 const sequelizes = new Sequelize(DB_NAME,DB_USER,DB_PWD,{
     host: DB_HOST,
     port: DB_PORT,
@@ -32,15 +33,16 @@ const sequelizes = new Sequelize(DB_NAME,DB_USER,DB_PWD,{
     },
     timezone: '+08:00' //东八时区
 });
-function log(sql,detail){
-    console.log(sql);
+function log(sql,details){
+    info(sql)
+    // logger.info(details)
 }
-// sequelizes.transaction({
-//     // to defer all constraints:
-//     deferrable: Sequelize.Deferrable.SET_DEFERRED,
-//     // to defer a specific constraint:
-//     // deferrable: Sequelize.Deferrable.SET_DEFERRED(['some_constraint']),
-//     // to not defer constraints:
-//     // deferrable: Sequelize.Deferrable.SET_IMMEDIATE
-// })
+sequelizes.transaction({
+    // to defer all constraints:
+    deferrable: Sequelize.Deferrable.SET_DEFERRED,
+    // to defer a specific constraint:
+    // deferrable: Sequelize.Deferrable.SET_DEFERRED(['some_constraint']),
+    // to not defer constraints:
+    // deferrable: Sequelize.Deferrable.SET_IMMEDIATE
+})
 module.exports = sequelizes
