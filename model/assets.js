@@ -69,12 +69,21 @@ class Assets extends Model {
                     allowNull: false,
                     comment: '登记时间'
                 },
+                borrower_user:{
+                    type: DataTypes.STRING,
+                    allowNull: false,
+                    comment: '借用人'
+                },
+                borrower_return_date:{
+                    type: DataTypes.DATE,
+                    allowNull: false,
+                    comment: '预计借用归还时间'
+                },
                 collateral_type:{
                     type: DataTypes.INTEGER(1),
                     allowNull: false,
                     comment: '抵质押物类型 0 抵押 1 质押'
                 },
-                
                 warehousing_time:{
                     type: DataTypes.DATE,
                     allowNull: false,

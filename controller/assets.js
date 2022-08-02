@@ -157,7 +157,7 @@ class AssetsController{
         // 根据组织架构id+仓库id+库区id 创建锁key
         const lock = await redisStore.redlock.acquire(['sequenceNum:lock:'+OrganizationalId+':'+DepartmentId+':'+StorageId],5000)
         // 根据组织架构id+仓库id+库区id 创建自增顺序id
-        const sequenceNum = await redisStore.redis.get('sequenceNum:lock:num:'+OrganizationalId+':'+DepartmentId+':'+StorageId) || 0
+        const sequenceNum = await redisStore.redis.get('sequenceNum:num:'+OrganizationalId+':'+DepartmentId+':'+StorageId) || 0
         // 创建并生成记录
         const Info = await transaction(async(t)=>{
                 let Info = await models.Assets.create({
@@ -203,7 +203,7 @@ class AssetsController{
         })
         if(updateInfo[0]>0){
             //如果更新成功则触发rdies自增 增加记录
-            await redisStore.redis.incr('sequenceNum:lock:num:'+OrganizationalId+':'+DepartmentId+':'+StorageId)
+            await redisStore.redis.incr('sequenceNum:num:'+OrganizationalId+':'+DepartmentId+':'+StorageId)
             //释放锁
             lock.release();
             const findInfo = await models.Assets.findOne({
