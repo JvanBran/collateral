@@ -30,12 +30,18 @@ function transTreeToListData(tree, list) {
         list.push(item)
     })
 }
-function getRfidCode(){
+function getRfidCodeA(){
     const rfidCode = 'A' + crypto.randomBytes(8).toString('hex').slice(0, 15)
     return rfidCode.toUpperCase()
 }
+function getRfidCodeF(){
+    const rfidCode = 'F'+ crypto.randomBytes(8).toString('hex').slice(0,15)
+    return rfidCode.toUpperCase()
+}
+
 module.exports = {
     transListToTreeData: transListToTreeData,
     transTreeToListData: transTreeToListData,
-    getRfidCode: getRfidCode
+    getRfidCodeA: getRfidCodeA,
+    getRfidCodeF: getRfidCodeF
 }

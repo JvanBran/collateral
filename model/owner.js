@@ -61,6 +61,13 @@ class Owner extends Model {
         models.Owner.hasMany(models.AssetsReplace)
         models.Owner.hasMany(models.AssetsTransferInt)
         models.Owner.hasMany(models.AssetsTransferOut)
+        models.Owner.belongsToMany(models.Assets,{through: models.AssetsBrrow})
+        models.Owner.belongsToMany(models.Assets,{through: models.AssetsOut})
+        models.Owner.belongsToMany(models.Assets,{through: models.AssetsInt})
+        models.Owner.belongsToMany(models.Assets,{through: models.AssetsReplace})
+        models.Owner.belongsToMany(models.Assets,{through: models.AssetsReturn})
+        models.Owner.belongsToMany(models.Assets,{through: models.AssetsTransferInt})
+        models.Owner.belongsToMany(models.Assets,{through: models.AssetsTransferOut})
     }
 }
 

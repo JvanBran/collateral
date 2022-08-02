@@ -13,4 +13,8 @@ Object.values(sequelizes.models)
   .forEach(model => model.associate(sequelizes.models));
 // sequelize.sync({ force: true})
 sequelizes.sync({ alter: true})
-module.exports = sequelizes
+
+module.exports = {
+  models: sequelizes.models,
+  transaction: sequelizes.transaction.bind(sequelizes)
+}

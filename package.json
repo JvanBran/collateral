@@ -37,7 +37,7 @@
     "mysql2": "^2.3.3",
     "pug": "2.0.3",
     "redlock": "^5.0.0-beta.2",
-    "sequelize": "5.21.10"
+    "sequelize": "^6.21.3"
   },
   "devDependencies": {
     "nodemon": "^1.19.1"

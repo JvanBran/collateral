@@ -39,6 +39,13 @@ class Organizational extends Model {
         models.Organizational.hasMany(models.Assets)
         models.Organizational.hasMany(models.SysConfig)
         models.Organizational.hasMany(models.Dictionary)
+        models.Organizational.belongsToMany(models.Assets,{through: models.AssetsBrrow})
+        models.Organizational.belongsToMany(models.Assets,{through: models.AssetsOut})
+        models.Organizational.belongsToMany(models.Assets,{through: models.AssetsInt})
+        models.Organizational.belongsToMany(models.Assets,{through: models.AssetsReplace})
+        models.Organizational.belongsToMany(models.Assets,{through: models.AssetsReturn})
+        models.Organizational.belongsToMany(models.Assets,{through: models.AssetsTransferInt})
+        models.Organizational.belongsToMany(models.Assets,{through: models.AssetsTransferOut})
     }
 }
 
